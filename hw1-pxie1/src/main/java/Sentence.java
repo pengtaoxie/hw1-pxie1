@@ -10,8 +10,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** the input sentence
- * Updated by JCasGen Sat Sep 20 16:49:42 EDT 2014
- * XML source: C:/Users/PengtaoXie/workspace/11791/git/hw1-pxie1/hw1-pxie1/src/main/resources/collectionReaderDescriptor.xml
+ * Updated by JCasGen Sat Sep 20 22:49:38 EDT 2014
+ * XML source: C:/Users/PengtaoXie/workspace/11791/git/hw1-pxie1/hw1-pxie1/src/main/resources/filecollectionReaderDescriptor.xml
  * @generated */
 public class Sentence extends Annotation {
   /** @generated

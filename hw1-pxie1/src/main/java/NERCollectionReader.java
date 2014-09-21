@@ -19,12 +19,12 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 	   * Name of configuration parameter that must be set to the path of a directory containing input
 	   * files.
 	   */
-	  public static final String PARAM_INPUTFILE = "";
+	  public static final String PARAM_INPUTFILE = "src/main/resources/data/sample.in";
 
-	  public static BufferedReader infile =null;
-	  public static String line="";
-	  public static int cur_size=0;
-	  public static int total_size=0;
+	  public BufferedReader infile ;
+	  public String line;
+	  public int cur_size;
+	  public int total_size;
 
 	  /**
 	   * @see org.apache.uima.collection.CollectionReader_ImplBase#initialize()
@@ -33,6 +33,8 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 		  try {
 			File f=new File(PARAM_INPUTFILE);
 			infile = new BufferedReader(new FileReader(f));
+			line="";
+			cur_size=0;
 			total_size=(int) f.length();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -45,13 +47,15 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 	   * @see org.apache.uima.collection.CollectionReader#hasNext()
 	   */
 	  public boolean hasNext() {
-	    return line!=null;
+	    return true;//line!=null;
 	  }
 
 	  /**
 	   * @see org.apache.uima.collection.CollectionReader#getNext(org.apache.uima.cas.CAS)
 	   */
 	  public void getNext(CAS aCAS) throws IOException, CollectionException {
+		  
+		  
 	    JCas jcas;
 	    try {
 	      jcas = aCAS.getJCas();
@@ -59,14 +63,18 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 	      throw new CollectionException(e);
 	    }
 	    line=infile.readLine();
+	    line=infile.readLine();
+	    line=infile.readLine();
+	    if(line==null)
+	    	return;
+	    System.out.println(line);
+	    //if(line==null)
+	    	//System.out.println("end of file");
+	    //if(line==null)
+	    	//return;
 	    cur_size+=line.length();
-	    Sentence s=new Sentence(jcas);
-	    int idx=line.indexOf(" ");
-	    String id=line.substring(0, idx);
-	    String content=line.substring(idx+1, line.length()-1);
-	    s.setId(id);
-	    s.setContent(content);
-	    s.addToIndexes();
+	    jcas.setDocumentText(line);
+	    
 	  }
 
 	  /**
