@@ -25,6 +25,7 @@ public class CASConsumer extends CasConsumer_ImplBase {
 	public BufferedWriter outfile ;
 	
 	public void initialize() {
+		//open the output file
 		try {
 			File file = new File((String)getConfigParameterValue("OutputFile"));
 			file.createNewFile();
@@ -60,7 +61,7 @@ public class CASConsumer extends CasConsumer_ImplBase {
 	   
 	    if (it.hasNext()) {
 	    	EntityMention s=(EntityMention)it.next();
-	    	System.out.println(s.getId()+"|"+s.getStart()+" "+s.getEnd()+"|"+s.getContent());
+	    	//write the entity mention to the output file
 	    	try {
 				outfile.write(s.getId()+"|"+s.getStart()+" "+s.getEnd()+"|"+s.getContent()+"\n");
 				outfile.flush();

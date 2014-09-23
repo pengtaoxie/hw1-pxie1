@@ -29,6 +29,7 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 	   * @see org.apache.uima.collection.CollectionReader_ImplBase#initialize()
 	   */
 	  public void initialize()  {
+		  //open the input file
 		  try {
 			File f=new File((String)getConfigParameterValue("InputFile"));
 			infile = new BufferedReader(new FileReader(f));
