@@ -7,7 +7,7 @@
       </descriptor>
     </collectionIterator>
   </collectionReader>
-  <casProcessors dropCasOnException="true" casPoolSize="1" 
+  <casProcessors casPoolSize="3" 
       processingUnitThreadCount="1">
     <casProcessor deployment="integrated" 
       name="NER Annotator">
@@ -19,7 +19,7 @@
       <errorHandling>
         <errorRateThreshold action="terminate" value="100/1000"/>
                 <maxConsecutiveRestarts action="terminate" value="30"/>
-                <timeout max="100000"/>
+                <timeout max="100000" default="-1"/>
       </errorHandling>
       <checkpoint batch="1"/>
     </casProcessor>
@@ -33,13 +33,13 @@
       <errorHandling>
         <errorRateThreshold action="terminate" value="100/1000"/>
                 <maxConsecutiveRestarts action="terminate" value="30"/>
-                <timeout max="100000"/>
+                <timeout max="100000" default="-1"/>
       </errorHandling>
       <checkpoint batch="1"/>
     </casProcessor>
   </casProcessors>
   <cpeConfig>
-    <numToProcess>1</numToProcess>
+    <numToProcess>-1</numToProcess>
     <deployAs>immediate</deployAs>
     <checkpoint file="" time="3000"/>
     <timerImpl/>

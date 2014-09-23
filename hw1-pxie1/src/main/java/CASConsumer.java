@@ -1,4 +1,9 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,11 +21,32 @@ import org.xml.sax.SAXException;
 
 public class CASConsumer extends CasConsumer_ImplBase {
 	
-	public static final String PARAM_OUTPUTFILE = "";
+	
+	public BufferedWriter outfile ;
 	
 	public void initialize() {
-	    
+		try {
+			File file = new File((String)getConfigParameterValue("OutputFile"));
+			file.createNewFile();
+			outfile = new BufferedWriter(new FileWriter(file));
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
+	public void collectionProcessComplete(){	
+	    try {
+			outfile.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void processCas(CAS aCAS) throws ResourceProcessException  {
 	    JCas jcas;
 	    try {
@@ -30,13 +56,19 @@ public class CASConsumer extends CasConsumer_ImplBase {
 	    }
 
 	    // retrieve the filename of the input file from the CAS
-	    FSIterator it = jcas.getAnnotationIndex(Sentence.type).iterator();
+	    FSIterator it = jcas.getAnnotationIndex(EntityMention.type).iterator();
 	   
 	    if (it.hasNext()) {
-	    	Sentence s=(Sentence)it.next();
-	    	//System.out.println(s.getId()+"\t"+s.getContent());
+	    	EntityMention s=(EntityMention)it.next();
+	    	System.out.println(s.getId()+"|"+s.getStart()+" "+s.getEnd()+"|"+s.getContent());
+	    	try {
+				outfile.write(s.getId()+"|"+s.getStart()+" "+s.getEnd()+"|"+s.getContent()+"\n");
+				outfile.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    }
-	    
 	    
 	  }
 

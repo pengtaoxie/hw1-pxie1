@@ -19,7 +19,6 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 	   * Name of configuration parameter that must be set to the path of a directory containing input
 	   * files.
 	   */
-	  public static final String PARAM_INPUTFILE = "src/main/resources/data/sample.in";
 
 	  public BufferedReader infile ;
 	  public String line;
@@ -31,7 +30,7 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 	   */
 	  public void initialize()  {
 		  try {
-			File f=new File(PARAM_INPUTFILE);
+			File f=new File((String)getConfigParameterValue("InputFile"));
 			infile = new BufferedReader(new FileReader(f));
 			line="";
 			cur_size=0;
@@ -47,7 +46,14 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 	   * @see org.apache.uima.collection.CollectionReader#hasNext()
 	   */
 	  public boolean hasNext() {
-	    return true;//line!=null;
+	    try {
+			return infile.ready();
+		} catch (IOException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	  }
 
 	  /**
@@ -63,17 +69,19 @@ public class NERCollectionReader extends CollectionReader_ImplBase {
 	      throw new CollectionException(e);
 	    }
 	    line=infile.readLine();
-	    line=infile.readLine();
-	    line=infile.readLine();
-	    if(line==null)
-	    	return;
-	    System.out.println(line);
-	    //if(line==null)
-	    	//System.out.println("end of file");
-	    //if(line==null)
-	    	//return;
-	    cur_size+=line.length();
-	    jcas.setDocumentText(line);
+	    if(line!=null)
+	    {
+	    	cur_size+=line.length();
+	    	Sentence s=new Sentence(jcas);
+		    int idx=line.indexOf(" ");
+		    String id=line.substring(0, idx);
+		    String content=line.substring(idx+1, line.length()-1);
+		    s.setId(id);
+		    s.setContent(content);
+		    s.addToIndexes();
+	    }
+	    
+	    
 	    
 	  }
 

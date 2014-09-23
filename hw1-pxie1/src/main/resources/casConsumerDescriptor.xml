@@ -7,8 +7,22 @@
     <description/>
     <version>1.0</version>
     <vendor/>
-    <configurationParameters/>
-    <configurationParameterSettings/>
+    <configurationParameters>
+      <configurationParameter>
+        <name>OutputFile</name>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>OutputFile</name>
+        <value>
+          <string>src/main/resources/data/sample_out_test</string>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
     <typeSystemDescription>
       <imports>
         <import location="typeSystemDescriptor.xml"/>
@@ -19,7 +33,7 @@
     <capabilities>
       <capability>
         <inputs>
-          <type allAnnotatorFeatures="true">Sentence</type>
+          <type allAnnotatorFeatures="true">EntityMention</type>
         </inputs>
         <outputs/>
         <languagesSupported/>

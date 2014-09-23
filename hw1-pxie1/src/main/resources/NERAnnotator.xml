@@ -19,9 +19,10 @@
     <capabilities>
       <capability>
         <inputs>
-          </inputs>
-        <outputs>
           <type allAnnotatorFeatures="true">Sentence</type>
+        </inputs>
+        <outputs>
+          <type allAnnotatorFeatures="true">EntityMention</type>
         </outputs>
         <languagesSupported/>
       </capability>

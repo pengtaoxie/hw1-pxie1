@@ -30,7 +30,7 @@
         <featureDescription>
           <name>id</name>
           <description>id of this mention</description>
-          <rangeTypeName>uima.cas.Integer</rangeTypeName>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
         </featureDescription>
         <featureDescription>
           <name>start</name>
